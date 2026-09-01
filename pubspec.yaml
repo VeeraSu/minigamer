@@ -1,0 +1,30 @@
+name: mini_gamer
+description: "MINI GAMER - an action game with sound effects."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  audioplayers: ^6.5.1  # or latest available
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/sounds/
+  # assets/
+  #   sounds/
+  #     star.ogg
+  #     fuel.ogg
+  #     hit.mp3
+  #     gameover.ogg
+

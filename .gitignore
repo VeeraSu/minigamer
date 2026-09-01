@@ -5,9 +5,11 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related
@@ -115,6 +117,49 @@ local.properties
 
 # OS generated files
 Thumbs.db
+
+# Build output logs
+build_output.txt
+
+# IDE specific files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/*
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# OS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+*.bak
+*~.nib
+
+# Node modules (if using web build tools)
+node_modules/
+npm-debug.log
+
+# Generated documentation
+doc/api/
+
+# Testing
+test_driver/
+test_results/
+coverage/lcov.info
+
+# Release build artifacts
+*.apk
+*.ipa
+*.aab
+*.dmg
 
 # Generated files
 .dart_tool/

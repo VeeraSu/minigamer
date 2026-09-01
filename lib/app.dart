@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'features/menu/presentation/main_menu_screen.dart';
+import 'core/presentation/app_home.dart';
 
 class RocketAvoidApp extends StatelessWidget {
   const RocketAvoidApp({super.key});
@@ -23,7 +23,7 @@ class RocketAvoidApp extends StatelessWidget {
           centerTitle: false,
         ),
       ),
-      home: const MainMenuScreen(),
+      home: const AppHome(),
     );
   }
 }

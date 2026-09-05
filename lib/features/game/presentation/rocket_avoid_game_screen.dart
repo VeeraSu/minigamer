@@ -45,6 +45,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _showGameOver(int score, int fuelCaught, int stars) {
+    // Let the final movement frame settle before presenting the result modal.
     Future.delayed(const Duration(milliseconds: 600), () {
       if (!mounted) return;
       showDialog(

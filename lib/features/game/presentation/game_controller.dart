@@ -40,6 +40,8 @@ class GameController {
         _random = random ?? Random();
 
   void start() {
+    // A restart reuses this controller, so every previous timer must stop
+    // before the new game state begins.
     _cancelTimers();
     items.clear();
     rocketX = 0.5;
@@ -104,6 +106,8 @@ class GameController {
     final collected = <GameItem>[];
 
     for (final item in items) {
+      // Positions are normalized to 0..1; these thresholds match the rocket
+      // and item hit areas rather than their full visual bounds.
       final dx = (item.x - rocketX).abs();
       final dy = (item.y - rocketY).abs();
       if (dx >= 0.06 || dy >= 0.07) continue;
@@ -122,6 +126,8 @@ class GameController {
       }
       collected.add(item);
     }
+    // Remove after iteration so collision handling never mutates the list
+    // being inspected.
     items.removeWhere(collected.contains);
   }
 

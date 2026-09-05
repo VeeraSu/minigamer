@@ -38,9 +38,13 @@ class SoundFx {
     Future<void> Function() fallback,
   ) async {
     try {
+      // Reuse each player so repeated actions replace, rather than stack,
+      // overlapping effects.
       await player.stop();
       await player.play(AssetSource(asset));
     } catch (_) {
+      // System sounds keep feedback available when an asset is unavailable
+      // or a platform audio player cannot start.
       try {
         await fallback();
       } catch (_) {}

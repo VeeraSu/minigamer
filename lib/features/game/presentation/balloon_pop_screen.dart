@@ -50,6 +50,12 @@ class _BalloonPopScreenState extends State<BalloonPopScreen> {
     _driftTimer?.cancel();
     _countdownTimer?.cancel();
 
+    // MediaQuery is available after the first frame, so the opening balloon
+    // appears immediately without reading inherited data during initState.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !_isPlaying) return;
+      _spawnBalloon();
+    });
     _spawnTimer = Timer.periodic(const Duration(milliseconds: 700), (_) {
       if (!_isPlaying || !mounted) return;
       _spawnBalloon();
@@ -61,7 +67,9 @@ class _BalloonPopScreenState extends State<BalloonPopScreen> {
         final width = MediaQuery.sizeOf(context).width;
         final height = MediaQuery.sizeOf(context).height;
 
-        for (final balloon in _balloons) {
+        // Balloons can leave the screen during this pass; iterate over a copy
+        // so removing them does not mutate the active iterator.
+        for (final balloon in List<_Balloon>.of(_balloons)) {
           balloon.y += balloon.speed;
           balloon.rotation += balloon.spin;
 
@@ -100,6 +108,7 @@ class _BalloonPopScreenState extends State<BalloonPopScreen> {
             .values[_random.nextInt(_BalloonColor.values.length - 1)];
 
     if (_balloons.length >= 12) {
+      // Keep rendering and hit testing bounded as balloons continue spawning.
       _balloons.removeAt(0);
     }
 
@@ -110,7 +119,7 @@ class _BalloonPopScreenState extends State<BalloonPopScreen> {
         y: -50 - _random.nextDouble() * height * 0.3,
         size: 42 + _random.nextDouble() * 22,
         color: color,
-        speed: 1.2 + _random.nextDouble() * 1.5,
+        speed: 2.0 + _random.nextDouble() * 2.0,
         drift: (_random.nextDouble() - 0.5) * 2.2,
         spin: (_random.nextDouble() - 0.5) * 0.06,
       )..isGolden = isGolden,
